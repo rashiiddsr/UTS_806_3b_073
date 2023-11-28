@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UTS_806_3b_073</string>
+    <string-array name="list_id">
+        <item>Pilih ID</item>
+        <item>100_073</item>
+        <item>101_073</item>
+        <item>102_073</item>
+    </string-array>
+</resources>
