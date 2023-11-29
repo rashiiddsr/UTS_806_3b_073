@@ -25,8 +25,7 @@
 
             proses.setOnClickListener(v -> {
                 String idMekanik, namaMekanik, jabatanMekanik;
-                double nilaiBelanja, diskonAwal, hargaNext, diskonAkhir, hargaAkhir, pajak, totalBayar;
-
+                long nilaiBelanja, diskonAwal, hargaNext, diskonAkhir, hargaAkhir, pajak, totalBayar;
 
                 idMekanik = idMekanikSelect.getSelectedItem().toString();
 
@@ -50,15 +49,15 @@
                     return;
                 }
 
-                nilaiBelanja  = Double.parseDouble(totalBelanja.getText().toString());
+                nilaiBelanja  = Long.parseLong(totalBelanja.getText().toString());
                 diskonAwal = nilaiBelanja * 10/100;
                 hargaNext = nilaiBelanja - diskonAwal;
 
 
                 if (jabatanMekanik.equals("Supervisor Mekanik")) {
-                    diskonAkhir = nilaiBelanja * 73/40/100;
+                    diskonAkhir = nilaiBelanja * 73 / 40 / 100;
                 } else if (jabatanMekanik.equals("Mekanik")) {
-                    diskonAkhir = nilaiBelanja * 73/20/100;
+                    diskonAkhir = nilaiBelanja * 73 / 20 / 100;
                 } else {
                     diskonAkhir = nilaiBelanja * 73 / 10 / 100;
                 }
