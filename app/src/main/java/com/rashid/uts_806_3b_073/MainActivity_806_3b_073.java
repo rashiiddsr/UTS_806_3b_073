@@ -11,7 +11,6 @@
         Spinner idMekanikSelect;
         EditText totalBelanja;
         Button proses, batal, keluar;
-        String namaMekanik, jabatanMekanik;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -25,7 +24,11 @@
 
 
             proses.setOnClickListener(v -> {
-                String idMekanik = idMekanikSelect.getSelectedItem().toString();
+                String idMekanik, namaMekanik, jabatanMekanik;
+                double nilaiBelanja, diskonAwal, hargaNext, diskonAkhir, hargaAkhir, pajak, totalBayar;
+
+
+                idMekanik = idMekanikSelect.getSelectedItem().toString();
 
                 if (idMekanik.equals("100_073")) {
                     namaMekanik = "Arjuna";
@@ -37,34 +40,32 @@
                     namaMekanik = "Adiya";
                     jabatanMekanik = "Administrasi";
                 } else {
-                    Toast toast = Toast.makeText(this, "Mohon Memilih ID Mekanik", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(this, "Mohon memilih salah satu ID",Toast.LENGTH_SHORT);
                     toast.show();
                     return;
-
                 }
-                double nilaiBelanja, diskonAwal, hargaNext, diskonAkhir, hargaAkhir, pajak, totalBayar;
                 if (totalBelanja.getText().toString().isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
                     builder.setMessage("Mohon Masukkan Total Belanja").setNegativeButton("Ok", null).create().show();
                     return;
                 }
+
                 nilaiBelanja  = Double.parseDouble(totalBelanja.getText().toString());
                 diskonAwal = nilaiBelanja * 10/100;
                 hargaNext = nilaiBelanja - diskonAwal;
 
-                diskonAkhir = (double) 0;
+
                 if (jabatanMekanik.equals("Supervisor Mekanik")) {
                     diskonAkhir = nilaiBelanja * 73/40/100;
                 } else if (jabatanMekanik.equals("Mekanik")) {
                     diskonAkhir = nilaiBelanja * 73/20/100;
-                } else if (jabatanMekanik.equals("Administrasi")) {
-                    diskonAkhir = nilaiBelanja * 73/10/100;
+                } else {
+                    diskonAkhir = nilaiBelanja * 73 / 10 / 100;
                 }
 
                 hargaAkhir = hargaNext - diskonAkhir;
                 pajak = hargaAkhir * 10/100;
-                totalBayar = hargaAkhir - pajak;
+                totalBayar = hargaAkhir + pajak;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 String pesanAkhir = "ID Mekanik : " + idMekanik +
@@ -79,7 +80,10 @@
 
             });
 
-            batal.setOnClickListener(v -> totalBelanja.setText(null));
+            batal.setOnClickListener(v -> {
+                totalBelanja.setText(null);
+                idMekanikSelect.setSelection(0, true);
+            });
 
             keluar.setOnClickListener(v -> {
                 finish();
